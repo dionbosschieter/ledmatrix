@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 
 const int rows = 7;
 const int columns = 5;
@@ -321,7 +322,7 @@ void print_char(int *ascii_char) {
 };
 
 void print_buffer() {
-    for (int row = 1; row < rows+1; row++) {    
+    for (int row = 1; row < rows+1; row++) {
         for (int i = 0; i < panel_count; i++) {
             if (!display[i]) {
                 continue;
@@ -337,20 +338,92 @@ void print_buffer() {
     }
 }
 
+void clear_display() {
+    for (int i = 0; i < panel_count; i++) {
+        display[i] = space;
+    }
+}
+
+int *get_display_char_from_char(char character) {
+    switch (character) {
+        case 'a':
+            return letter_a;
+        case 'b':
+            return letter_b;
+        case 'c':
+            return letter_c;
+        case 'd':
+            return letter_d;
+        case 'e':
+            return letter_e;
+        case 'f':
+            return letter_f;
+        case 'g':
+            return letter_g;
+        case 'h':
+            return letter_h;
+        case 'i':
+            return letter_i;
+        case 'j':
+            return letter_j;
+        case 'k':
+            return letter_k;
+        case 'l':
+            return letter_l;
+        case 'm':
+            return letter_m;
+        case 'n':
+            return letter_n;
+        case 'o':
+            return letter_o;
+        case 'p':
+            return letter_p;
+        case 'q':
+            return letter_q;
+        case 'r':
+            return letter_r;
+        case 's':
+            return letter_s;
+        case 't':
+            return letter_t;
+        case 'u':
+            return letter_u;
+        case 'v':
+            return letter_v;
+        case 'w':
+            return letter_w;
+        case 'x':
+            return letter_x;
+        case 'y':
+            return letter_y;
+        case 'z':
+            return letter_z;
+        case '.':
+            return char_dot;
+        default:
+            return space;
+    }
+}
+
+void write_message_to_display(char *message) {
+    if (strlen(message) > panel_count) {
+        return;
+    }
+
+    for (int i = 0; i < strlen(message); i++) {
+        display[i] = get_display_char_from_char(message[i]);
+    }
+}
+
 int main(int argc, char **argv) {
     printf("test\n");
 
-    display[0] = letter_t;
-    display[1] = letter_e;
-    display[2] = letter_a;
-    display[3] = letter_m;
-    display[4] = char_dot;
-    display[5] = letter_b;
-    display[6] = letter_l;
-    display[7] = letter_u;
-    display[8] = letter_e;
+    char *message = "team.blue";
+    write_message_to_display(message);
 
     print_buffer();
+
+    clear_display();
 
     return 0;
 }
